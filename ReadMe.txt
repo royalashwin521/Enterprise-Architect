@@ -1,0 +1,1 @@
+A project as base level reference for Enterprice-production Ready Java software 
