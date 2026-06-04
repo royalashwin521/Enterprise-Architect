@@ -37,7 +37,6 @@ public class WordProcessingService {
         this.collectStrategies = collectStrategies;
 
         // Default rules on startup
-
         Predicate<String> countRule = resolveCountRule(countCondition, countValue);
         Predicate<String> collectRule = resolveCollectRule(collectCondition, collectValue);
 
@@ -63,27 +62,6 @@ public class WordProcessingService {
     public RuleDto getCurrentRuleState() {
         return currentRuleState.get();
     }
-
-//    private Predicate<String> buildStringPredicate(String condition, String value) {
-//        if (value == null) value = "";
-//        String lowerValue = value.toLowerCase();
-//
-//        return switch (condition.toUpperCase()) {
-//            case "STARTS_WITH" -> w -> w.toLowerCase().startsWith(lowerValue);
-//            case "ENDS_WITH"   -> w -> w.toLowerCase().endsWith(lowerValue);
-//            case "EQUALS"      -> w -> w.equalsIgnoreCase(lowerValue);
-//            default            -> throw new InvalidRuleException("Invalid count rule provided: " + condition);
-//        };
-//    }
-//
-//    private Predicate<String> buildLengthPredicate(String condition, int value) {
-//        return switch (condition.toUpperCase()) {
-//            case "LENGTH_GREATER_THAN" -> w -> w.length() > value;
-//            case "LENGTH_EQUALS"       -> w -> w.length() == value;
-//            case "LENGTH_LESS_THAN"    -> w -> w.length() < value;
-//            default                    -> throw new InvalidRuleException("Invalid collect rule provided: " + condition);
-//        };
-//    }
 
     private Predicate<String> resolveCountRule(String condition, String value) {
         return countStrategies.stream()

@@ -46,6 +46,19 @@ class WordProcessingServiceTest {
     }
 
     @Test
+    void shouldProcessWordsWithEqualsAndLessThanRules() {
+        RuleDto newRules = new RuleDto("EQUALS", "apple", "LENGTH_LESS_THAN", 6);
+        service.updateRules(newRules);
+
+        List<String> words = List.of("Apple", "apple", "app", "banana", "strawberry");
+        WordRequestDto wordRequestDto = new WordRequestDto(words);
+        WordProcessingResult result = service.process(wordRequestDto);
+
+        assertThat(result.countMatches()).isEqualTo(2);
+        assertThat(result.filteredWords()).containsExactly("Apple", "apple", "app");
+    }
+
+    @Test
     void shouldProcessWordsWithDefaultRules() {
         List<String> words = List.of("Mountain", "apple", "moon");
 
