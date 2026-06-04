@@ -4,6 +4,9 @@ import com.wordprocessor.dto.RuleDto;
 import com.wordprocessor.dto.WordProcessingResult;
 import com.wordprocessor.dto.WordRequestDto;
 import com.wordprocessor.service.WordProcessingService;
+import com.wordprocessor.service.rules.CollectRuleStrategy;
+import com.wordprocessor.service.rules.CountRuleStrategy;
+import com.wordprocessor.service.rules.impl.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +20,19 @@ class WordProcessingServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new WordProcessingService("STARTS_WITH", "m",
+        List<CountRuleStrategy> countStrategies = List.of(
+                new StartsWithCountRule(),
+                new EndsWithCountRule(),
+                new EqualsCountRule()
+        );
+
+        List<CollectRuleStrategy> collectStrategies = List.of(
+                new LengthGreaterThanCollectRule(),
+                new LengthEqualsCollectRule(),
+                new LengthLessThanCollectRule()
+        );
+        service = new WordProcessingService(countStrategies,collectStrategies,
+                "STARTS_WITH", "m",
                 "LENGTH_GREATER_THAN", 5);
     }
 

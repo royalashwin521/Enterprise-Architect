@@ -5,14 +5,11 @@ import com.wordprocessor.dto.WordProcessingResult;
 import com.wordprocessor.dto.WordRequestDto;
 import com.wordprocessor.service.WordProcessingService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -54,7 +51,7 @@ public class WordController {
      * PUT /api/words/rules
      */
     @PutMapping("/rules")
-    public ResponseEntity<String> updateRules(@RequestBody RuleDto newRules) {
+    public ResponseEntity<String> updateRules(@Valid @RequestBody RuleDto newRules) {
         log.info("Total client rule update requests processed: {}", totalClientCount.incrementAndGet());
         service.updateRules(newRules);
         return ResponseEntity.ok("Success: Business rules have been updated.");

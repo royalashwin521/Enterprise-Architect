@@ -1,4 +1,4 @@
-package com.wordprocessor.service;
+package com.wordprocessor.service.engine;
 
 import com.wordprocessor.dto.WordProcessingResult;
 
